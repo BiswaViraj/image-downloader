@@ -1,0 +1,25 @@
+{
+  "name": "image-downloader",
+  "version": "1.0.0",
+  "description": "Download all the images from any website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "web",
+    "scraping",
+    "image",
+    "image",
+    "downloader"
+  ],
+  "author": "BiswaViraj",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "puppeteer": "^3.0.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  }
+}
