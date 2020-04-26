@@ -42,7 +42,7 @@ rp(url)
       // update the img URL
       let downURL = srcURL!== undefined && srcURL.startsWith("http") ? srcURL : url + srcURL;
       let imgTitle = elem.attribs.alt;
-      imgTitle = imgTitle ? imgTitle.slice(0,20) : i;
+      imgTitle = imgTitle ? i+imgTitle.slice(0,20) : i;
 
       downloadImg(downURL, imgTitle, pageTitle);
     });
