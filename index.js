@@ -6,16 +6,16 @@ const path = require("path");
 const homedir = require("os").homedir();
 
 const url = process.argv[2];
-
 console.log(process.argv[2]);
-const downloadImg = (imgURL, imgTitle) => {
+const downloadImg = (imgURL, imgTitle, folderName) => {
   // stream the response and save it to the folder
   let folder = "imageDownloads";
-  const output = path.resolve(homedir, `./${folder}/${imgTitle}.png`);
-  let dir = `${homedir}/${folder}`;
+  let subFolder = folderName.replace(/ /g,'')
+  const output = path.resolve(homedir, `./${folder}/${subFolder}/${imgTitle}.png`);
+  let dir = `${homedir}/${folder}/${subFolder}`;
 
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(path.join(homedir, folder));
+    fs.mkdirSync(path.join(homedir, folder,subFolder));
   }
 
   request
@@ -23,13 +23,14 @@ const downloadImg = (imgURL, imgTitle) => {
     .on("error", function (error) {
       try {
       } catch (error) {
-        console.error(error);
+        console.error (error);
       }
     })
     .pipe(fs.createWriteStream(output));
 };
 rp(url)
   .then(function (html) {
+    let pageTitle = $("title",html).text()
     // select all img tag and loop over them
     $("img", html).each((i, elem) => {
       // get the src attribute
@@ -39,7 +40,7 @@ rp(url)
       let imgTitle = elem.attribs.alt;
       imgTitle = imgTitle ? imgTitle : i;
 
-      downloadImg(downURL, imgTitle);
+      downloadImg(downURL, imgTitle, pageTitle);
     });
   })
   .catch(function (err) {
