@@ -10,12 +10,15 @@ console.log(process.argv[2]);
 const downloadImg = (imgURL, imgTitle, folderName) => {
   // stream the response and save it to the folder
   let folder = "imageDownloads";
-  let subFolder = folderName.replace(/ /g,'')
-  const output = path.resolve(homedir, `./${folder}/${subFolder}/${imgTitle}.png`);
+  let subFolder = folderName.replace(/ /g, "");
+  const output = path.resolve(
+    homedir,
+    `./${folder}/${subFolder}/${imgTitle}.png`
+  );
   let dir = `${homedir}/${folder}/${subFolder}`;
 
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(path.join(homedir, folder,subFolder));
+    fs.mkdirSync(path.join(homedir, folder, subFolder));
   }
 
   request
@@ -23,14 +26,14 @@ const downloadImg = (imgURL, imgTitle, folderName) => {
     .on("error", function (error) {
       try {
       } catch (error) {
-        console.error (error);
+        console.error(error);
       }
     })
     .pipe(fs.createWriteStream(output));
 };
 rp(url)
   .then(function (html) {
-    let pageTitle = $("title",html).text()
+    let pageTitle = $("title", html).text();
     // select all img tag and loop over them
     $("img", html).each((i, elem) => {
       // get the src attribute
