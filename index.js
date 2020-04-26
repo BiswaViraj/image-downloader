@@ -20,7 +20,7 @@ const downloadImg = (imgURL, imgTitle, folderName) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(path.join(homedir, folder, subFolder));
   }
-
+  
   request
     .get(imgURL)
     .on("error", function (error) {
@@ -39,9 +39,9 @@ rp(url)
       // get the src attribute
       let srcURL = elem.attribs.src;
       // update the img URL
-      let downURL = srcURL.startsWith("http") ? srcURL : url + srcURL;
+      let downURL = srcURL!== undefined && srcURL.startsWith("http") ? srcURL : url + srcURL;
       let imgTitle = elem.attribs.alt;
-      imgTitle = imgTitle ? imgTitle : i;
+      imgTitle = imgTitle ? imgTitle.slice(0,20) : i;
 
       downloadImg(downURL, imgTitle, pageTitle);
     });
