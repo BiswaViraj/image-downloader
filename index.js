@@ -5,8 +5,9 @@ const fs = require("fs");
 const path = require("path");
 const homedir = require("os").homedir();
 
-const url = "https://unsplash.com/";
+const url = process.argv[2];
 
+console.log(process.argv[2]);
 const downloadImg = (imgURL, imgTitle) => {
   // stream the response and save it to the folder
   let folder = "imageDownloads";
@@ -17,7 +18,15 @@ const downloadImg = (imgURL, imgTitle) => {
     fs.mkdirSync(path.join(homedir, folder));
   }
 
-  request(imgURL).pipe(fs.createWriteStream(output));
+  request
+    .get(imgURL)
+    .on("error", function (error) {
+      try {
+      } catch (error) {
+        console.log("hi");
+      }
+    })
+    .pipe(fs.createWriteStream(output));
 };
 rp(url)
   .then(function (html) {
