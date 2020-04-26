@@ -23,7 +23,7 @@ const downloadImg = (imgURL, imgTitle) => {
     .on("error", function (error) {
       try {
       } catch (error) {
-        console.log("hi");
+        console.error(error);
       }
     })
     .pipe(fs.createWriteStream(output));
