@@ -34,6 +34,7 @@ const downloadImg = (imgURL, imgTitle, folderName) => {
 rp(url)
   .then(function (html) {
     let pageTitle = $("title", html).text();
+    pageTitle = pageTitle.slice(0,15)
     // select all img tag and loop over them
     $("img", html).each((i, elem) => {
       // get the src attribute
